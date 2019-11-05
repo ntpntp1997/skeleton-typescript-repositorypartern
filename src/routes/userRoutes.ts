@@ -18,7 +18,6 @@ class UserRoutes {
         return router;
     }
     
-    
 }
 
 Object.seal(UserRoutes);

@@ -2,17 +2,25 @@ import { UserRepository } from '../repository/userRepository';
 import { UserModel } from '../models/userModel';
 import IUserModel from '../models/interfaces/userModel';
 import IUserBusiness = require("./interfaces/UserBusiness");
-
+import bcrypt from "bcrypt";
 
 
 export class UserBusiness  implements IUserBusiness {
     private _userRepository: UserRepository;
+    private saltRounds = 7;
     
     constructor () {
         this._userRepository = new UserRepository();
     }  
+
+    hashPassword (password: string): string{
+        let salt = bcrypt.genSaltSync(this.saltRounds);
+        return bcrypt.hashSync(password, salt);
+    }
         
     create (item: IUserModel, callback: (error: any, result: any) => void) {
+        console.log(item.password);
+        item.password = this.hashPassword(item.password);
         this._userRepository.create(item, callback);   
     }
    
@@ -38,8 +46,10 @@ export class UserBusiness  implements IUserBusiness {
     findById (_id: string, callback: (error: any, result: IUserModel) => void) {
         this._userRepository.findById(_id, callback);
     }
+
+    findBy (type: string, username: string, callback: (error: any, result: IUserModel) => void) {
+        this._userRepository.findBy(type, username, callback);
+    }
     
 }
-
-
 Object.seal(UserBusiness);
