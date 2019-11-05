@@ -1,4 +1,5 @@
 import * as express from 'express';
+import UserController = require('../\bcontrollers/userController');
 const router = express.Router();
 
 export default class AuthRouter {
@@ -7,13 +8,9 @@ export default class AuthRouter {
     }
 
     get routes () {
-        router.post('/login', (req, res) => {
-            return res.json('dan nhap'); 
-        })
-        router.post('/register', (req, res) => {
-            return res.json('dan ky'); 
-        })
-        
+        const controller = new UserController();
+        router.post('/login', controller.login)
+        router.post('/register', controller.create)
         return router;
     }
 }

@@ -1,6 +1,4 @@
-import { link } from "fs";
-
-export const transValidation = {
+const transValidation = {
     full_name: "Username gioi han trong khoan 3 - 17 ky tu va khong duoc phep chua ky tu dac biet",
     email_incorrect: "Email phai co dang @gmail.com",
     gender_incorrect: "Ua tai sao truong gioi tinh lai bi sai ???",
@@ -15,7 +13,7 @@ export const transValidation = {
 
 };
 
-export const transErrors = {
+const transErrors = {
     account_in_use: "email already",
     account_undifine: "tai khoan nay khong ton tai",
     user_current_password_failed: "Mat khau hien tai khong chinh xac",
@@ -41,7 +39,7 @@ export const transErrors = {
     token_invalid: "token không có giá trị",
 };
 
-export const transSuccess = {
+const transSuccess = {
     userCreated: (userEmail) => {
         return `tai khoan <strong>${userEmail}</strong> da duoc tao vui long kiem tra email`;
     },
@@ -64,7 +62,7 @@ export const transSuccess = {
     update_user_level: "Thay doi goi dich vu thanh cong",
 };
 
-export const transMail = {
+const transMail = {
     subject: "Ban da tao tai khoan",
     template: (link) => {
         return `
@@ -74,4 +72,11 @@ export const transMail = {
         `;
     },
     send_fail: "loi gui mail"
+}
+
+module.exports = {
+    transValidation: transValidation,
+    transErrors: transErrors,
+    transSuccess: transSuccess,
+    transMail: transMail
 }

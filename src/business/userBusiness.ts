@@ -17,6 +17,10 @@ export class UserBusiness  implements IUserBusiness {
         let salt = bcrypt.genSaltSync(this.saltRounds);
         return bcrypt.hashSync(password, salt);
     }
+
+    comparePassword (password: string, passwordMain: string): boolean{
+        return bcrypt.compare(password, passwordMain); // return promise has result true or false
+    }
         
     create (item: IUserModel, callback: (error: any, result: any) => void) {
         console.log(item.password);
