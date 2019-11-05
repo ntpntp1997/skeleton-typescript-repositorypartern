@@ -1,5 +1,5 @@
 import express = require("express");
-import UserController from './../controllers/userController'
+import UserController from '../controllers/userController'
 var router = express.Router();
 class UserRoutes {
     private _userController: UserController;
@@ -9,10 +9,7 @@ class UserRoutes {
     }
     get routes () {
         var controller = this._userController;
-        router.get("/users", (req, res) => {
-            console.log(req);
-            return res.json('as')
-        });
+        router.get("/users", controller.retrieve);
         router.post("/users", controller.create);
         router.put("/users/:_id", controller.update);
         router.get("/users/:_id", controller.findById);

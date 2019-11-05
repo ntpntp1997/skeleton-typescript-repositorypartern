@@ -7,16 +7,16 @@ const mongooseConnection = DataAccess.mongooseConnection;
 
 class UserSchema {
 
-  static get Schema () {
+  static get Schema (): any {
        var schema = mongoose.Schema = {
         email: { type: String, required: true, unique: true },
-        firstName: { type: String, required: true },
-        lastName: { type: String, required: true },
+        firstName: { type: String, required: true},
+        lastName: { type: String, required: true},
         username: { type: String, required: true, unique: true},
-        passwork: { type: String, required: true},
-        phone: { type: String, required: true},
-        address: { type: String, required: true},
-        avatar: { type: String, required: true},
+        password: { type: String, required: true},
+        phone: { type: String, default: null},
+        address: { type: String, default: null},
+        avatar: { type: String, default: null},
         role: [],
         permiss: [],
         createAt: { type: Number, default: Date.now},

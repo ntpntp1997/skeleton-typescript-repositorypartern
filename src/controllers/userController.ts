@@ -1,7 +1,7 @@
 import express = require("express");
 import IBaseController from './interfaces/base/BaseController';
 import { UserBusiness } from "../business/userBusiness";
-import IUserModel from './../models/interfaces/userModel'
+import IUserModel from '../models/interfaces/userModel'
 
 
 class UserController implements IBaseController <UserBusiness> {
@@ -12,7 +12,10 @@ class UserController implements IBaseController <UserBusiness> {
                 var user: IUserModel = <IUserModel>req.body;
                 var userBusiness = new UserBusiness();
                 userBusiness.create(user, (error, result) => {
-                    if(error) res.send({"error": "error"});
+                    if(error){
+                        console.log(error)
+                        res.send({"error": "error"});
+                    } 
                     else res.send({"success": "success"});
                 });
             }
@@ -75,17 +78,17 @@ class UserController implements IBaseController <UserBusiness> {
              var _id: string = req.params._id;
              var userBusiness = new UserBusiness();
              userBusiness.findById(_id, (error, result) => {
-                    if(error) res.send({"error": "error"});
+                    if(error){
+                        console.log(error)
+                        res.send({"error": "error"});
+                    } 
                     else res.send(result);
                 });   
             }
             catch (e)  {
                 console.log(e);
                 res.send({"error": "error in your request"});
-                
             }
     }
-    
-        
 }
 export = UserController;    
