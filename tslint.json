@@ -5,7 +5,9 @@
     ],
     "jsRules": {},
     "rules": {
-        "no-console": false
+        "no-console": false,
+        "no-shadowed-variable": true,
+        "no-trailing-whitespace": true,
     },
     "rulesDirectory": []
 }

@@ -1,6 +1,6 @@
 import IRead = require("./../interfaces/base/read");
 import IWrite = require("./../interfaces/base/write");
-import IHeroModel = require("./../../models/userModel");
+import IUserModel = require("../../models/schemas/userSchema");
 
 import mongoose = require("mongoose");
 

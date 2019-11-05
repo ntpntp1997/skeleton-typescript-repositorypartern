@@ -1,40 +1,59 @@
+import IUserModel = require("./interfaces/userModel");
 
-import mongoose, { Schema, Document } from 'mongoose';
+export class UserModel {
 
-export interface User extends Document {
-  email: string;
-  firstName: string;
-  lastName: string;
+   private _userModel: IUserModel;
+
+   constructor(heroModel: IUserModel) {
+       this._userModel = heroModel;
+   }
+   get username (): string {
+       return this._userModel.username;
+   }
+
+   get email (): string {
+       return this._userModel.email;
+   }
+
+   get passwork (): string {
+       return this._userModel.passwork;
+   }
+
+   get firstName (): string {
+       return this._userModel.firstName;
+   }
+
+   get lastname (): string {
+       return this._userModel.lastName;
+   }
+
+   get role (): any {
+       return this._userModel.role;
+   }
+
+   get permiss (): any {
+       return this._userModel.permiss;
+   }
+
+   get phone (): string {
+       return this._userModel.phone;
+   }
+
+   get address (): string {
+       return this._userModel.address;
+   }
+
+   get createAt (): number {
+    return this._userModel.createAt;
+   }
+
+   get updateAt (): number {
+    return this._userModel.updateAt;
+   }
+
+   get deleteAt (): number {
+    return this._userModel.deleteAt;
+   }
+
 }
-
-const UserSchema: Schema = new Schema({
-  email: { type: String, required: true, unique: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  username: { type: String, required: true, unique: true},
-  passwork: { type: String, required: true},
-  phone: { type: String, required: true},
-  address: { type: String, required: true},
-  avatar: { type: String, required: true},
-  role: [],
-  permiss: [],
-  createAt: { type: Number, default: Date.now},
-  updateAt: { type: Number, default: null},
-  deleteAt: { type: Number, default: null},
-});
-
-UserSchema.pre('save', function (next) {
-  this.log('saving user...');
-  next();
-});
-
-UserSchema.post('save', function (doc) {
-  this.log('user saved!');
-});
-
-UserSchema.method('log', (message) => {
-    console.log('log: ' + message);
-});
-// Export the model and return your IUser interface
-export default mongoose.model<User>('User', UserSchema);
-mongoose.model('User')
+Object.seal(UserModel);
