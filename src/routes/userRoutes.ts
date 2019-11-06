@@ -20,5 +20,6 @@ class UserRoutes {
     
 }
 
+
 Object.seal(UserRoutes);
 export = UserRoutes;

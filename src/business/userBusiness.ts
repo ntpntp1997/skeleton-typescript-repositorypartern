@@ -52,7 +52,7 @@ export class UserBusiness  implements IUserBusiness {
     }
 
     findBy (type: string, username: string, callback: (error: any, result: IUserModel) => void) {
-        this._userRepository.findBy(type, username, callback);
+        this._userRepository.findUserName(username, callback);
     }
     
 }

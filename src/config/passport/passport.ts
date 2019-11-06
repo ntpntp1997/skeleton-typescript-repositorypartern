@@ -3,10 +3,19 @@ import passPortLocal from "passport-local";
 import { transErrors, transSuccess, transMail } from "./../../../lang/vi";
 import { UserBusiness } from '../../business/userBusiness';
 
+interface Greeter {
+    (message: string): void;
+}
 class PassPortInit {
     constructor() {  
     }
-
+    
+    
+    sayHi(greeter: Greeter) {
+        greeter('Hello!');
+    }
+    
+    
     public initPassPortLocal () {
         let LocalStrategy = passPortLocal.Strategy;
         passPort.use(new LocalStrategy({
@@ -16,32 +25,33 @@ class PassPortInit {
         }, async(req, username, password, done, ) => {
             try {
                 let userBusiness = new UserBusiness();
-                let user 
-                 userBusiness.findBy('username', username, (err, result) => {
+                let user ;
+                user = await userBusiness.findBy('username', username, async(err, result) => {
                     if (err) {
                         console.log(err);
                         return done(null, false, transErrors.server_error);
                     }
                     else {
                         user = result;
+                        this.sayHi((msg) => console.log(msg));
+                        console.log(user)
+                    if (!user) {
+                        console.log(1)
+                        return done(null, false, transErrors.login_failed);
+                    }
+                    
+        
+                    let checkPassword = await userBusiness.comparePassword(password, user.password);
+                    console.log(checkPassword); 
+                    if (!checkPassword) {
+                        return done(null, false, transErrors.login_failed);
+                    }
+        
+                    //return done(null, user, req.flash("success", transSuccess.login_success(user.username)))
+                    return done(null, user)
                     }
                 });
-                console.log(user)
-                if (!user) {
-    
-                    return done(null, false, transErrors.login_failed);
-                }
-                if (!user.local.isActive) {
-                    return done(null, false, transErrors.account_not_active);
-                }
-    
-                let checkPassword = await userBusiness.comparePassword(password, user.password);
-                if (!checkPassword) {
-                    return done(null, false, transErrors.login_failed);
-                }
-    
-                //return done(null, user, req.flash("success", transSuccess.login_success(user.username)))
-                return done(null, user)
+                
             } catch (error) {
                 console.log(error);
                 return done(null, false, transErrors.server_error);

@@ -104,7 +104,7 @@ class UserController implements IBaseController <UserBusiness> {
             if (err) { return res.status(500).send(err.message); }
     
             // neu user khong ton tai
-            console.log(user)
+            // console.log(user)
             if (!user) { return res.status(404).send('user not found'); }
     
             // thuc thien dang nhap va tao session
@@ -118,13 +118,13 @@ class UserController implements IBaseController <UserBusiness> {
                 let data = {
                     id: user._id,
                     username: user.username,
-                    email: user.local.email,
                     role: user.role,
                 }
                 const token = jwt.sign(data, confToken.secret, {
                     expiresIn: confToken.tokenLife,
                 });
                 let tokenVerify = jwt.verify(token, confToken.secret)
+                console.log(tokenVerify)
                 // let tokenExpTime = tokenVerify.exp
                     // Tạo một mã token khác - Refresh token
                 const refreshToken = jwt.sign(data, confToken.refreshTokenSecret, {

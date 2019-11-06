@@ -34,8 +34,8 @@ class RepositoryBase<T extends mongoose.Document> implements IRead<T>, IWrite<T>
         this._model.findById(_id, callback);
     }
 
-    findBy(type: string, value: string, callback: (error: any, result: T) => void) {
-        this._model.findOne({type: value},callback);
+    findUserName(value: any, callback: (error: any, result: T) => void) {
+        this._model.findOne({"username": value}, callback);
     }
 
     private toObjectId(_id: string): mongoose.Types.ObjectId {
